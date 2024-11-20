@@ -1,0 +1,182 @@
+1. Change your password to a password you would like to use for the remainder of the semester.
+sh
+passwd
+2. Display the system’s date.
+sh
+date
+3. Count the number of lines in the /etc/passwd file.
+sh
+wc -l /etc/passwd
+4. Find out who else is on the system.
+sh
+who
+5. Direct the output of the man pages for the date command to a file named mydate.
+sh
+man date > mydate
+6. Create a subdirectory called mydir.
+sh
+mkdir mydir
+7. Move the file mydate into the new subdirectory.
+sh
+mv mydate mydir/
+8. Go to the subdirectory mydir and copy the file mydate to a new file called ourdate.
+sh
+cd mydir
+cp mydate ourdate
+9. List the contents of mydir.
+sh
+ls
+10. Do a long listing on the file ourdate and note the permissions.
+sh
+ls -l ourdate
+11. Display the name of the current directory starting from the root.
+sh
+pwd
+12. Move the files in the directory mydir back to your home directory.
+sh
+mv mydir/* ~/
+13. Display the first 5 lines of mydate.
+sh
+head -n 5 mydate
+14. Display the last 8 lines of mydate.
+sh
+tail -n 8 mydate
+15. Remove the directory mydir.
+sh
+rmdir mydir
+16. Redirect the output of the long listing of files to a file named list.
+sh
+ls -l > list
+17. Select any 5 capitals of states in India and enter them in a file named capitals1. Choose 5 more capitals and enter them in a file named capitals2. Choose 5 more capitals and enter them in a file named capitals3. Concatenate all 3 files and redirect the output to a file named capitals.
+sh
+echo -e "Delhi\nMumbai\nChennai\nKolkata\nBengaluru" > capitals1
+echo -e "Hyderabad\nPune\nAhmedabad\nJaipur\nLucknow" > capitals2
+echo -e "Patna\nBhopal\nRanchi\nShimla\nThiruvananthapuram" > capitals3
+cat capitals1 capitals2 capitals3 > capitals
+18. Concatenate the file capitals2 at the end of file capitals.
+sh
+cat capitals2 >> capitals
+19. Give read and write permissions to all users for the file capitals.
+sh
+chmod 666 capitals
+20. Give read permissions only to the owner of the file capitals. Open the file, make some changes and try to save it. What happens?
+sh
+chmod 400 capitals
+# Open the file in an editor like nano or vi and attempt to save changes. You will be unable to save due to lack of write permissions.
+21. Create an alias to concatenate the 3 files capitals1, capitals2, capitals3 and redirect the output to a file named capitals. Activate the alias and make it run.
+sh
+alias concat_caps="cat capitals1 capitals2 capitals3 > capitals"
+concat_caps
+22. Find out the number of times the string “the” appears in the file mydate.
+sh
+grep -o "the" mydate | wc -l
+23. Find out the line numbers on which the string “date” exists in mydate.
+sh
+grep -n "date" mydate
+24. Print all lines of mydate except those that have the letter “i” in them.
+sh
+grep -v "i" mydate
+25. List the words of 4 letters from the file mydate.
+sh
+grep -oE '\b\w{4}\b' mydate
+26. List 5 states in northeast India in a file mystates. List their corresponding capitals in a file mycapitals. Use the paste command to join the 2 files.
+sh
+echo -e "Assam\nArunachal Pradesh\nManipur\nMeghalaya\nMizoram" > mystates
+echo -e "Dispur\nItanagar\nImphal\nShillong\nAizawl" > mycapitals
+paste mystates mycapitals
+27. Use the cut command to print the 1st and 3rd columns of the /etc/passwd file for all students in this class.
+sh
+cut -d: -f1,3 /etc/passwd
+28. Count the number of people logged in and also trap the users in a file using the tee command.
+sh
+who | tee usersfile | wc -l
+29. Convert the contents of mystates into uppercase.
+sh
+tr 'a-z' 'A-Z' < mystates
+30. Create any two files & display the common values between them.
+sh
+echo -e "apple\nbanana\ncherry" > file1
+echo -e "banana\ncherry\ndate" > file2
+comm -12 <(sort file1) <(sort file2)
+
+------------------------------------------------------------------------------------------------------------------------------------------
+Advanced Linux Commands
+1. Create Student record text file as “Student1” for given input student details.
+sh
+cat << EOF > Student1
+PRN Number   Student Name           Year   Division   Roll No   Email Id                       Gender
+12110382     INGLE AKASH SWARUP     SY     CS-B       32        akash.ingle21@vit.edu          Male
+12111286     JAYAPPA ATHARVA VIJAY  SY     CS-B       40        atharva.jayappa21@vit.edu      Male
+12111284     JOSHI PRANAV JAYANT    SY     CS-B       43        pranav.joshi21@vit.edu         Male
+12111281     KETKAR OJAS DEVENDRA   SY     CS-B       56        ojas.ketkar211@vit.edu         Male
+12010017     Pavan Kumar Sanjay     TY     CS-C       26        pavan.sanjay20@vit.edu         Male
+12010870     PAWAR OMKAR VIKAS      TY     CS-C       28        omkar.pawar20@vit.edu          Male
+12011408     PRANITA PRASHANT MASKE TY     CS-C       41        pranita.maske20@vit.edu        Female
+12120031     BHAGWAT AKASH DAULAT   TY     CS-C       55        akash.bhagwat21@vit.edu        Male
+12120039     GAIKWAD UDAYAN FATHESINGH TY CS-C       62        udayan.gaikwad21@vit.edu       Male
+12120014     INAMDAR SANIYA AJIJ    TY     CS-C       64        saniya.inamadar21@vit.edu      Female
+12120050     KAPSE SHREYAS SANTOSH  TY     CS-C       69        shreyas.kapse21@vit.edu        Male
+12120033     MUKTA PATIL            TY     CS-C       72        patil.mukta21@vit.edu          Male
+11910490     KOLPE SAKET PRADIP     BTech  CS-B       16        saket.kolpe19@vit.edu          Male
+12020233     PAWAR GAURAV PRABHAKAR BTech  CS-C       28        gaurav.pawar20@vit.edu         Male
+11910590     RINGNEKAR VARUN DEEPAK BTech  CS-D       2         varun.ringnekar19@vit.edu      Male
+11910541     SATDEVE HARSH SHAILESH BTech  CS-D       9         harsh.satdeve19@vit.edu        Male
+11910157     SAMARTH GAJANAN GAWANDE BTech CS-D       7         SAMARTH.GAWANDE19@vit.edu      Male
+11911020     SURANGALIKAR KIRTISH NITIN BTech CS-D   13        kirtish.surangalikar19@vit.edu Male
+11911229     PATIL PRADYUMN NARENDRA BTech CS-C-3    11        pradyumn.patil19@vit.edu       Male
+EOF
+2. Find out Btech student from “Student1” file and save the content into “Btech” file
+sh
+grep "BTech" Student1 > Btech
+3. Find out TY student from “Student1” file and save the content into “TY” file
+sh
+grep "TY" Student1 > TY
+4. Find out SY student from “Student1” file and save the content into “SY” file
+sh
+grep "SY" Student1 > SY
+5. Combine SY and TY students from “
+contiue
+Absolutely! Let's continue with the remaining tasks.
+
+Advanced Linux Commands (continued)
+5. Combine SY and TY students from “Student1” file and save the content into “SYTY” file
+sh
+grep -E "SY|TY" Student1 > SYTY
+6. Sort the file based on Roll No. and save content into “Student2” file.
+sh
+sort -k5 -n Student1 > Student2
+7. Compare “Student1” file with “Btech” file and save content into “Student2” file.
+sh
+comm -3 Student1 Btech > Student2
+8. Find out PRN NO, Student Name, Year and Division field data from “Student1” file and save into “Student3” file.
+sh
+awk '{print $1, $2, $3, $4}' Student1 > Student3
+9. Find out Roll No., Email Id and Gender field data from “Student1” file and save into “Student4” file.
+sh
+awk '{print $5, $6, $7}' Student1 > Student4
+10. Combine “Student3” and “Student4” file and save content into “Student5” file.
+sh
+paste Student3 Student4 > Student5
+11. Convert “Student1” content into Uppercase Letter and save into “Student6” file.
+sh
+tr 'a-z' 'A-Z' < Student1 > Student6
+12. Compare “Student1” and “Btech” file and save content into “Student7” file.
+sh
+comm -3 Student1 Btech > Student7
+13. Find out the difference between “Student1” and “Btech” file and Save into “Student 8” file.
+sh
+diff Student1 Btech > Student8
+14. Find out common entries between “Student1” and “Btech” file and save content into “Student9” file.
+sh
+comm -12 <(sort Student1) <(sort Btech) > Student9
+15. Remove user and group read and write permission from “SY” file. Assign read, write, execute permission to user and others of “SY” file. Display count of male students from “Student1” file.
+sh
+chmod ug-rw SY
+chmod uo+rwx SY
+grep -c "Male" Student1
+16. Find out the name of student field data from “Student1” file and redirect output to count the number of students in “Student1” file.
+sh
+awk '{print $2}' Student1 | wc -l
+17. Find out files and directories in the current path and trap this output in a user file as “ufile”. Also, display the count of the number of directories and files in the current path. (Use only one command).
+sh
+ls -l | tee ufile | wc -l

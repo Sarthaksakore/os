@@ -1,0 +1,206 @@
+Shell Scripting-I
+1. Write shell script to execute command ls, date, pwd repetitively.
+sh
+#!/bin/bash
+while true
+do
+  ls
+  date
+  pwd
+  sleep 1
+done
+2. Write a shell script to assign value to the variable? Display value with and without $.
+sh
+#!/bin/bash
+VAR="Hello, World!"
+echo $VAR   # with $
+echo VAR    # without $
+3. Variables are untyped in Shell Script. Write a shell script to show variables are untyped.
+sh
+#!/bin/bash
+VAR="123"
+echo "VAR as a string: $VAR"
+VAR=123
+echo "VAR as a number: $VAR"
+4. Write a shell script to accept numbers from user. (Keyboard)
+sh
+#!/bin/bash
+echo "Enter a number:"
+read number
+echo "You entered: $number"
+5. Write a shell script to accept numbers from command line arguments.
+sh
+#!/bin/bash
+number=$1
+echo "You entered: $number"
+6. Write a shell script to show the contents of environmental variables SHELL, PATH, HOME.
+sh
+#!/bin/bash
+echo "SHELL: $SHELL"
+echo "PATH: $PATH"
+echo "HOME: $HOME"
+7. Write a shell script to create two files. Accept file names from user.
+sh
+#!/bin/bash
+echo "Enter first file name:"
+read file1
+echo "Enter second file name:"
+read file2
+touch $file1 $file2
+echo "Files created: $file1, $file2"
+8. Write a shell script to create two directories. Accept directories name from Command line.
+sh
+#!/bin/bash
+dir1=$1
+dir2=$2
+mkdir $dir1 $dir2
+echo "Directories created: $dir1, $dir2"
+9. Write a shell script to copy file content of one file to another file. Accept files names from command line argument.
+sh
+#!/bin/bash
+src=$1
+dest=$2
+cp $src $dest
+echo "Contents copied from $src to $dest"
+10. Write a shell script to rename the file name. Accept old filename and new filename from command line argument.
+sh
+#!/bin/bash
+old_name=$1
+new_name=$2
+mv $old_name $new_name
+echo "File renamed from $old_name to $new_name"
+11. Write a shell script to perform arithmetic operation of integer data.
+sh
+#!/bin/bash
+num1=$1
+num2=$2
+sum=$((num1 + num2))
+echo "Sum: $sum"
+12. Write a shell script to perform arithmetic operation of float data.
+sh
+#!/bin/bash
+num1=$1
+num2=$2
+sum=$(echo "$num1 + $num2" | bc)
+echo "Sum: $sum"
+------------------------------------------------------------------------------------------------------------------------------------------
+Shell Scripting-II
+1. Write a shell script to check number entered by the user is greater than 10.
+sh
+#!/bin/bash
+echo "Enter a number:"
+read number
+if [ $number -gt 10 ]
+then
+  echo "The number is greater than 10"
+else
+  echo "The number is not greater than 10"
+fi
+2. Write a shell script to check if a file exists. If not, then create it.
+sh
+#!/bin/bash
+echo "Enter the filename:"
+read filename
+if [ ! -f $filename ]
+then
+  touch $filename
+  echo "File created"
+else
+  echo "File already exists"
+fi
+3. Write a shell script that takes two command line arguments. Check whether the name passed as first argument is of a directory or not. If not, create directory using name passed as second argument.
+sh
+#!/bin/bash
+dir1=$1
+dir2=$2
+if [ -d $dir1 ]
+then
+  echo "$dir1 is a directory"
+else
+  mkdir $dir2
+  echo "Directory $dir2 created"
+fi
+4. Write a shell script which checks the total arguments passed. If the argument count is greater than 5, then display message “Too many arguments”.
+sh
+#!/bin/bash
+if [ $# -gt 5 ]
+then
+  echo "Too many arguments"
+else
+  echo "Argument count is okay"
+fi
+5. Write a shell script to check arguments passed at command line is whether of a file or directory.
+sh
+#!/bin/bash
+for arg in "$@"
+do
+  if [ -d $arg ]
+  then
+    echo "$arg is a directory"
+  elif [ -f $arg ]
+  then
+    echo "$arg is a file"
+  else
+    echo "$arg is not valid"
+  fi
+done
+6. Write a shell script to read a month name from the user. Check if the name entered is either August or October.
+sh
+#!/bin/bash
+echo "Enter a month name:"
+read month
+if [ "$month" = "August" ] || [ "$month" = "October" ]
+then
+  echo "The month is either August or October"
+else
+  echo "The month is neither August nor October"
+fi
+7. Write a shell script to check whether file or directory exists.
+sh
+#!/bin/bash
+echo "Enter the name of file or directory:"
+read name
+if [ -e $name ]
+then
+  echo "$name exists"
+else
+  echo "$name does not exist"
+fi
+8. Write a shell script to check whether file is exists and file is readable.
+sh
+#!/bin/bash
+echo "Enter the filename:"
+read filename
+if [ -f $filename ] && [ -r $filename ]
+then
+  echo "The file exists and is readable"
+else
+  echo "The file does not exist or is not readable"
+fi
+9. Write a shell script to check if the present month is August or not. Use date command to get present month.
+sh
+#!/bin/bash
+current_month=$(date +%B)
+if [ "$current_month" = "August" ]
+then
+  echo "It is August"
+else
+  echo "It is not August"
+fi
+10. Write a shell script to check if the current user is root or regular user.
+sh
+#!/bin/bash
+if [ $EUID -eq 0 ]
+then
+  echo "The current user is root"
+else
+  echo "The current user is a regular user"
+fi
+11. Write a shell script to check the total arguments passed at command line. If the arguments are more than 3 then list the argument else print “type more next time”.
+sh
+#!/bin/bash
+if [ $# -gt 3 ]
+then
+  echo "Arguments: $@"
+else
+  echo "Type more next time"
